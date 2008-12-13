@@ -1,0 +1,7 @@
+  [4;36;1mSQL (0.001441)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000608)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPost Load (0.000755)[0m   [0mSELECT * FROM `posts` WHERE (`posts`.`id` = '--- :one\n') [0m
+  [4;36;1mSQL (0.001472)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPost Load (0.037142)[0m   [0mSELECT * FROM `posts` WHERE (`posts`.`title` = 'MyString') LIMIT 1[0m
+  [4;36;1mSQL (0.001469)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mPost Load (0.005619)[0m   [0mSELECT * FROM `posts` WHERE (`posts`.`title` = 'MyString') LIMIT 1[0m

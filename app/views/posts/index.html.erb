@@ -1,0 +1,11 @@
+<div id="post-grid"></div>
+<%= ext_datastore_for 'Post' %>
+<% javascript_tag do -%>
+  var post_column_model = new Ext.grid.ColumnModel([
+    {id: 'id', header: "#", width: 20, dataIndex: 'id'},
+    {header: 'Title', dataIndex: 'post[title]'},
+    {header: 'Body', dataIndex: 'post[body]'},
+    {header: 'Published', dataIndex: 'post[published]'}
+  ]);
+<% end -%>
+<%= ext_grid_for 'Post', :element => 'post-grid' %>

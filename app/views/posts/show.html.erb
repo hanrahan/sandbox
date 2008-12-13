@@ -1,0 +1,6 @@
+<div id="post-form"></div>
+<%= render :partial => 'form_items', :object => :post_form_items %>
+<%= ext_form_for 'Post',
+                 :element => 'post-form',
+                 :form_items => :post_form_items,
+                 :mode => :show %>

@@ -1,0 +1,122 @@
+<%= stylesheet_link_tag "portal.css" %>
+<%= stylesheet_link_tag "sample.css" %>
+
+<%= javascript_include_tag "../ext/adapter/ext/ext-base.js" %>
+<%= javascript_include_tag "../ext/ext-all.js" %>
+
+<%= javascript_include_tag "Portal" %>
+<%= javascript_include_tag "PortalColumn" %>
+<%= javascript_include_tag "Portlet" %>
+<%= javascript_include_tag "sample-grid" %>
+<%= javascript_include_tag "examples" %>
+
+<script>
+  function change(val){
+        if(val > 0){
+            return '<span style="color:green;">' + val + '</span>';
+        }else if(val < 0){
+            return '<span style="color:red;">' + val + '</span>';
+        }
+        return val;
+    }
+
+    function pctChange(val){
+        if(val > 0){
+            return '<span style="color:green;">' + val + '%</span>';
+        }else if(val < 0){
+            return '<span style="color:red;">' + val + '%</span>';
+        }
+        return val;
+    }
+   var columns = [
+        {id:'company',header: "Companies", width: 160, sortable: true, dataIndex: 'company'},
+        {header: "Price", width: 75, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
+        {header: "Change", width: 75, sortable: true, renderer: change, dataIndex: 'change'},
+        {header: "% Change", width: 75, sortable: true, renderer: pctChange, dataIndex: 'pctChange'},
+        {header: "Last Updated", width: 85, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+    ];
+    
+// create some portlet tools using built in Ext tool ids
+    var tools = [{
+        id:'gear',
+        handler: function(){
+            Ext.Msg.alert('Message', 'The Settings tool was clicked.');
+        }
+    },{
+        id:'close',
+        handler: function(e, target, panel){
+            panel.ownerCt.remove(panel, true);
+        }
+    }];
+
+    var items = [{
+            region:'west',
+            id:'west-panel',
+            title:'West',
+            split:true,
+            width: 200,
+            minSize: 175,
+            maxSize: 400,
+            collapsible: true,
+            margins:'35 0 5 5',
+            cmargins:'35 5 5 5',
+            layout:'accordion',
+            layoutConfig:{
+                animate:true
+            },
+            items: [{
+                html: Ext.example.shortBogusMarkup,
+                title:'Navigation',
+                autoScroll:true,
+                border:false,
+                iconCls:'nav'
+            },{
+                title:'Settings',
+                html: Ext.example.shortBogusMarkup,
+                border:false,
+                autoScroll:true,
+                iconCls:'settings'
+            }]
+        },{
+            xtype:'portal',
+            region:'center',
+            margins:'35 5 5 0',
+            items:[{
+                columnWidth:.33,
+                style:'padding:10px 0 10px 10px',
+                items:[{
+                    title: 'Another Panel 1',
+                    tools: tools,
+                    html: Ext.example.shortBogusMarkup
+                }]
+            },{
+                columnWidth:.33,
+                style:'padding:10px 0 10px 10px',
+                items:[{
+                    title: 'Panel 2',
+                    tools: tools,
+                    html: Ext.example.shortBogusMarkup
+                },{
+                    title: 'Another Panel 2',
+                    tools: tools,
+                    html: Ext.example.shortBogusMarkup
+                }]
+            },{
+                columnWidth:.33,
+                style:'padding:10px',
+                items:[{
+                    title: 'Panel 3',
+                    tools: tools,
+                    html: Ext.example.shortBogusMarkup
+                },{
+                    title: 'Another Panel 3',
+                    tools: tools,
+                    html: Ext.example.shortBogusMarkup
+                }]
+            }]
+        }]
+     </script>
+
+<% portal do %>
+
+<% end %>
