@@ -30,11 +30,7 @@ Ext.onReady(function(){
 		border: false,
 		items: [
 			// from basic.js:
-			start, absolute, accordion, anchor, border, cardTabs, cardWizard, column, fit, form, table,
-			// from custom.js:
-			rowLayout, centerLayout,
-			// from combination.js:
-			absoluteForm, absoluteForm2, tabsNestedLayouts
+			start
 		]
 	};
     
@@ -65,8 +61,23 @@ Ext.onReady(function(){
 	// Assign the changeLayout function to be called on tree node click.
     treePanel.on('click', function(n){
     	var sn = this.selModel.selNode || {}; // selNode is null on initial selection
-    	if(n.leaf && n.id != sn.id){  // ignore clicks on folders and currently selected node 
-    		Ext.getCmp('content-panel').layout.setActiveItem(n.id + '-panel');
+    	if(n.leaf && n.id != sn.id){  // ignore clicks on folders and currently selected node
+
+            Ext.Ajax.request({
+                url: n.attributes.uri,
+
+                success: function(xhr) {
+                    Ext.Msg.alert("ya", "den");
+
+                    var newComponent = eval(xhr.responseText);
+                    contentPanel.add(newComponent);
+                },
+                failure: function() {
+                    Ext.Msg.alert("Grid create failed", "Server communication failure");
+                }
+            });
+
+    		//Ext.getCmp('content-panel').layout.setActiveItem(n.id + '-panel');
     		if(!detailEl){
     			var bd = Ext.getCmp('details-panel').body;
     			bd.update('').setStyle('background','#fff');
