@@ -4,4 +4,10 @@ class AjaxController < ApplicationController
       format.json
     end
   end
+
+  def card_tabs2
+    respond_to do |format|
+      format.json
+    end
+  end
 end

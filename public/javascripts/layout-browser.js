@@ -37,7 +37,7 @@ Ext.onReady(function(){
 	// Go ahead and create the TreePanel now so that we can use it below
     var treePanel = new Ext.tree.TreePanel({
     	id: 'tree-panel',
-    	title: 'Sample Layouts',
+    	title: 'Modules',
         region:'north',
         split: true,
         height: 300,
@@ -52,7 +52,7 @@ Ext.onReady(function(){
         
         loader: new Ext.tree.TreeLoader({
             requestMethod: 'get',
-            url:'tree-data.json'
+            url:'browser/main_menus'
         }),
         
         root: new Ext.tree.AsyncTreeNode()
@@ -62,28 +62,34 @@ Ext.onReady(function(){
     treePanel.on('click', function(n){
     	var sn = this.selModel.selNode || {}; // selNode is null on initial selection
     	if(n.leaf && n.id != sn.id){  // ignore clicks on folders and currently selected node
-
+           
             Ext.Ajax.request({
                 url: n.attributes.uri,
-
                 success: function(xhr) {
-                    Ext.Msg.alert("ya", "den");
+                  try{
+                  var newComponent = eval('(' + xhr.responseText + ')');
 
-                    var newComponent = eval(xhr.responseText);
-                    contentPanel.add(newComponent);
+                  Ext.getCmp('content-panel').add(newComponent);
+                  Ext.getCmp('content-panel').doLayout();
+                  }catch(err){
+                      Ext.Msg.alert("failed", err);
+                  }
                 },
                 failure: function() {
                     Ext.Msg.alert("Grid create failed", "Server communication failure");
                 }
             });
-
-    		//Ext.getCmp('content-panel').layout.setActiveItem(n.id + '-panel');
-    		if(!detailEl){
+            
+    		Ext.getCmp('content-panel').layout.setActiveItem(n.id + '-panel');
+            
+    		/**
+            if(!detailEl){
     			var bd = Ext.getCmp('details-panel').body;
     			bd.update('').setStyle('background','#fff');
     			detailEl = bd.createChild(); //create default empty div
     		}
     		detailEl.hide().update(Ext.getDom(n.id+'-details').innerHTML).slideIn('l', {stopFx:true,duration:.2});
+            */
     	}
     });
     
@@ -99,7 +105,7 @@ Ext.onReady(function(){
 	
 	// Finally, build the main layout once all the pieces are ready.  This is also a good
 	// example of putting together a full-screen BorderLayout within a Viewport.
-    new Ext.Viewport({
+    viewport = new Ext.Viewport({
 		layout: 'border',
 		title: 'Ext Layout Browser',
 		items: [{

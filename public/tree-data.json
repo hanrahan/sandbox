@@ -3,9 +3,27 @@
     expanded: true,
     children:[{
         text:'Card (TabPanel)',
-        id:'card-tabs',
+        id:'current1',
         leaf:true,
         uri: 'ajax/card_tabs'
         
+    },
+        {
+        text:'Card (TabPanel)2',
+        id:'current2',
+        leaf:true,
+        uri: 'ajax/card_tabs'
+
+    }]
+},
+{
+    text:'Basic Ext Layouts2',
+    expanded: true,
+    children:[{
+        text:'Card (TabPanel)',
+        id:'current2',
+        leaf:true,
+        uri: 'ajax/card_tabs2'
+
     }]
 }]
